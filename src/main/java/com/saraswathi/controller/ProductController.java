@@ -3,6 +3,7 @@ package com.saraswathi.controller;
 
 import com.saraswathi.entity.Product;
 import com.saraswathi.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
+@Slf4j
 public class ProductController {
 
     @Autowired
@@ -18,11 +20,11 @@ public class ProductController {
     // 🔥 Get all products
     @GetMapping
     public List<Product> getProducts(
-            @RequestHeader("X-User") String user,
+            @RequestHeader(value="X-User",required = false) String user,
             @RequestHeader(value = "X-Role", required = false) String role) {
 
         System.out.println("User: " + user + " Role: " + role);
-
+log.info("user role: {}",role);
         return service.getAllProducts();
     }
 
